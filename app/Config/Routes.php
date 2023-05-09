@@ -55,7 +55,12 @@ $routes->get('groups/restore/(:any)', 'Groups::restore/$1');
 $routes->get('groups/restore', 'Groups::restore');
 $routes->delete('groups/delete-permanent/(:any)', 'Groups::deletePermanent/$1');
 $routes->delete('groups/delete-permanent', 'Groups::deletePermanent');
+// routes presenter
 $routes->presenter('groups');
+
+$routes->resource('contacts');
+
+
 
 /*
  * --------------------------------------------------------------------

@@ -16,7 +16,7 @@
         <div class="col-12 col-md-12 col-lg-12">
             <div class="card">
                 <div class="card-header">
-                <h4>Buat Groups</h4>
+                <h4>Buat Grup</h4>
                 </div>
                 <div class="card-body col-md-6">
                     <form action="<?=site_url('groups')?>" method="post" autocomplete="off">
