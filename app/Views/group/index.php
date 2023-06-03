@@ -45,13 +45,15 @@
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-striped table-md">
-                            <tbody>
+                            <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Nama Grup</th>
                                     <th>Info</th>
                                     <th>Action</th>
                                 </tr>
+                            </thead>
+                            <tbody>
                                 <?php foreach($groups as $key => $value) : ?> 
                                     <tr>
                                         <td><?= $key + 1 ?></td>

@@ -45,7 +45,7 @@
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-striped table-md">
-                            <tbody>
+                            <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Nama</th>
@@ -57,6 +57,30 @@
                                     <th>Grup</th>
                                     <th>Action</th>
                                 </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($contacts as $key => $value) : ?> 
+                                    <tr>
+                                        <td><?= $key + 1 ?></td>
+                                        <td><?= $value->name_contact ?></td>
+                                        <td><?= $value->alias_contact ?></td>
+                                        <td><?= $value->telepon_contact ?></td>
+                                        <td><?= $value->email_contact ?></td>
+                                        <td><?= $value->alamat_contact ?></td>
+                                        <td><?= $value->info_contact ?></div></td>
+                                        <td><?= $value->name_group ?></div></td>
+                                        <td class="text-center" style="width:15%">
+                                            <a href="<?= site_url('contacts/'.$value->id_contact.'/edit') ?>" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
+                                            <form action="<?= site_url('contacts/'.$value->id_contact)?>" method="post" class="d-inline" onsubmit="return confirm('Yakin menghapus data ini?')">
+                                                <?= csrf_field() ?>
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <button class="btn btn-danger btn-sm">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>

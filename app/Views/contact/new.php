@@ -22,20 +22,29 @@
                     <form action="<?=site_url('contacts')?>" method="post" autocomplete="off">
                         <?= csrf_field() ?>
                         <div class="form-group">
+                            <label for="groups">Group *</label>
+                            <select name="id_group" class="form-control" required>
+                                <option value="" hidden></option>
+                                <?php foreach($groups as $key => $value) : ?>
+                                    <option value="<?= $value->id_group ?>"><?= $value->name_group ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="name_contact">Nama*</label>
-                            <input type="text" name="name_contact" class="form-control" required autofocus>
+                            <input type="text" name="name_contact" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="name_alias">Alias</label>
-                            <input type="text" name="alias_contact" class="form-control" required>
+                            <input type="text" name="alias_contact" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="telepon">Telepon*</label>
-                            <input type="number" name="telepon_contact" class="form-control" required>
+                            <input type="number" name="telepon_contact" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="email">Email*</label>
-                            <input type="email" name="email_contact" class="form-control" required>
+                            <input type="email" name="email_contact" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="info_group">Alamat*</label>

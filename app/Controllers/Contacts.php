@@ -3,10 +3,17 @@
 namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
+use App\Models\GroupsModel;
+use App\Models\ContactModel;
 
 class Contacts extends ResourceController
 {
     protected $helpers = ['custom'];
+
+    function __construct(){
+        $this->group = new GroupsModel();
+        $this->contact = new ContactModel();
+    }
     /**
      * Return an array of resource objects, themselves in array format
      *
@@ -14,7 +21,8 @@ class Contacts extends ResourceController
      */
     public function index()
     {
-        return view('contact/index');
+        $data['contacts'] = $this->contact->getAll();
+        return view('contact/index', $data);
     }
 
     /**
@@ -34,7 +42,8 @@ class Contacts extends ResourceController
      */
     public function new()
     {
-        return view('contact/new');
+        $data['groups'] = $this->group->findAll();
+        return view('contact/new', $data);
     }
 
     /**
@@ -44,7 +53,9 @@ class Contacts extends ResourceController
      */
     public function create()
     {
-        //
+        $data = $this->request->getPost();
+        $this->contact->insert($data);
+        return redirect()->to(site_url('contacts'))->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
@@ -54,7 +65,14 @@ class Contacts extends ResourceController
      */
     public function edit($id = null)
     {
-        return view('contact/edit');
+        $contact = $this->contact->find($id);
+        if(is_object($contact)){
+            $data['contact'] = $contact;
+            $data['groups'] = $this->group->findAll();
+            return view('contact/edit', $data);
+        } else {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
     }
 
     /**
@@ -64,7 +82,11 @@ class Contacts extends ResourceController
      */
     public function update($id = null)
     {
-        //
+        $data = $this->request->getPost();
+        $this->contact->update($id, $data);
+        if($this->group->affectedRows() > 0){
+            return redirect()->to(site_url('contacts'))->with('success', 'Data Berhasil Diupdate!');
+        }
     }
 
     /**
@@ -74,6 +96,9 @@ class Contacts extends ResourceController
      */
     public function delete($id = null)
     {
-        //
+        $this->contact->delete($id);
+        if($this->group->affectedRows() > 0){
+            return redirect()->to(site_url('contacts'))->with('success', 'Data Berhasil Dihapus!');
+        }
     }
 }
